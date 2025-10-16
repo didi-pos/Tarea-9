@@ -21,7 +21,7 @@
       <p><img width=850 src="https://github.com/user-attachments/assets/27b3e581-30dd-45b9-94c1-e08aee71777d"/></p>
     </div>
     <p>
-      
+      Primero se ingresa a la carpeta donde uno tiene el entorno virtual de python 
     </p>
   </li>
   <li><br>
