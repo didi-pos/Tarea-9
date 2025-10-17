@@ -21,22 +21,29 @@
       <p><img width=850 src="https://github.com/user-attachments/assets/27b3e581-30dd-45b9-94c1-e08aee71777d"/></p>
     </div>
     <p>
-      Primero se ingresa a la carpeta donde uno tiene el entorno virtual de python, ya que asi es como podremos ejecutar las simulaciones para saber que realmente estan funcionando para después Dockerizarlas.
-      Después creamos los archivos Python (.py) donde se va a colocar el código de las simulaciones, ahora si se ingresa al entorno virtual con <code>source &lt;nombre_entorno_virtual&gt;/bin/activate</code>.
-      Luego de ingresar al entorno virtual, se ejecutan las simulaciones con <code>python &lt;nombre_archivo_simulación&gt;</code>, y deberia cargar sin problemas.
-      Recordar que se requiere tener instalado pybullet en el entorno virtual, yo ya lo tenia instalado y es necesario para archivos que usen esta libreria (como la del brazo_robotico.py).
+      Primero, se ingresa a la carpeta donde se tiene el <b>entorno virtual de Python</b>, ya que así es como podremos ejecutar las simulaciones para comprobar que realmente están funcionando antes de Dockerizarlas. 
+      Luego, se crean los archivos <b>Python (.py)</b> donde se colocará el código de las simulaciones. 
+      <br><br>
+      Una vez listos, se ingresa al entorno virtual con el comando <code>source &lt;nombre_entorno_virtual&gt;/bin/activate</code>. 
+      Después de activarlo, se ejecutan las simulaciones con <code>python &lt;nombre_archivo_simulación&gt;</code>, y si todo está correcto, deberían cargarse sin problemas. 
+      <br><br>
+      Es importante tener instalada la librería <b>PyBullet</b> dentro del entorno virtual, ya que es necesaria para los archivos que la utilizan (como el <i>brazo_robotico.py</i>).
     </p>
   </li>
+
   <li><br>
     <div align="center">
       <p><img width=850 src="https://github.com/user-attachments/assets/8720c7de-c89f-4f75-aa13-680e8e3d07e3"/></p>
       <p><img width=850 src="https://github.com/user-attachments/assets/a3a13d49-b32b-4156-a884-3ffb8009107e"/></p>
     </div>
     <p>
-      Aqui se muestra el código que las dos simulaciones, teniendo en cuenta que para que se pueda mostrar con un entorno gráfico tanto en el entorno virtual como cuando se Dockerice, seria colocar esta linea:
-      <code>physicsClient = p.connect(p.GUI)</code> con <code>(p.GUI)</code> y no con <code>(p.DIRECT)</code>, de resto el código normal con sus librerias que puede contener pybullet o ktinker para ejecutarlos.
+      Aquí se muestra el código de las dos simulaciones. Es importante tener en cuenta que, para que puedan mostrarse con un entorno gráfico tanto en el entorno virtual como cuando se Dockericen, 
+      se debe colocar la línea <code>physicsClient = p.connect(p.GUI)</code> en lugar de <code>p.connect(p.DIRECT)</code>. 
+      <br><br>
+      El resto del código se mantiene igual, con sus respectivas librerías, ya sea <b>PyBullet</b> o <b>Tkinter</b>, dependiendo de la simulación.
     </p>
   </li>
+
   <li><br>
     <div align="center">
       <p><img width=850 src="https://github.com/user-attachments/assets/8202d40d-bff9-4767-a8cb-0401cc8cbb40"/></p>
@@ -44,7 +51,10 @@
       <p><img width=850 src="https://github.com/user-attachments/assets/135181a3-cbad-40e9-b541-5493cfaaf3e9"/></p>
     </div>
     <p>
-      Estas serian las simulaciones ya ejecutandose exitosamente y cumpliendo con las funciones que queremos, ya estaria listo para Dockerizarlas.
+      Estas son las simulaciones ejecutándose exitosamente en <b>PyBullet</b>, que es el motor encargado de correr simulaciones, juegos y aplicaciones interactivas. 
+      <br><br>
+      Gracias a esto, podemos verificar que las simulaciones funcionan correctamente y cumplen con las funciones que queremos. 
+      Una vez comprobado, ya estarían listas para ser <b>Dockerizadas</b>.
     </p>
   </li>
 </ol>
@@ -68,51 +78,57 @@
       <p><img width=850 src="https://github.com/user-attachments/assets/53a3aafe-fe69-4120-b8fe-d7dfdd288af8"/></p>
     </div>
     <p>
-      Para empezar la Dockerización, se requiere una carpeta donde se va a colocar todos los archivos necesarios para el proceso y entre estos claramente debe estar el archivo de la simulación.
-      Después de crear esa carpeta, se crea un archivo Texto (.txt) que se llamara requirements.txt donde se va a colocar las librerias que se colocaron el archivo de la simulación que se requieren
-      simular como lo es pybullet, también numpy es una que requiere instalación, las demás que usamos vienen ya con la instalación de python.
-      Luego se mueve el archivo de la simulación (.py) a la carpeta que se creó.
-      Después se crea un archivo sin extensión que lo llamaremos Dockerfile, practicamente este es un archivo se va a ejecutar el código que contenga como los archivos (.bash), pero en docker, donde
-      será capaz de configurar todos esos archivos para crear la imagen del archivo con todas sus dependencias necesarias.
-      Luego se ejecuta este comando <code>xhost +local:docker</code> para permitir las conexiones X11, que son necesarias para mostrar el entorno gráfico cuando se ejecute el contenedor.
-      Finalmente se construye la imagen con <code>docker build -t &lt;nombre_de_la_imagen&gt; .</code>
+      Para comenzar la <b>Dockerización</b>, se necesita crear una carpeta donde se colocarán todos los archivos necesarios para el proceso. Entre estos debe estar el archivo principal de la simulación. 
+      <br><br>
+      Dentro de esta carpeta se crea un archivo de texto llamado <b>requirements.txt</b>, donde se listan las librerías utilizadas en la simulación que deben instalarse, como <code>pybullet</code> o <code>numpy</code>. 
+      Las demás librerías vienen incluidas con la instalación de Python. 
+      <br><br>
+      Luego, se mueve el archivo de simulación (<b>.py</b>) a la carpeta creada, y se genera un archivo sin extensión llamado <b>Dockerfile</b>. Este archivo contiene el código que se ejecutará en el proceso de construcción de la imagen, 
+      muy parecido a un script de <i>bash</i>, pero adaptado para Docker. 
+      <br><br>
+      Antes de construir la imagen, se ejecuta el comando <code>xhost +local:docker</code> para permitir las conexiones X11 necesarias para mostrar el entorno gráfico. Finalmente, se construye la imagen con 
+      <code>docker build -t &lt;nombre_de_la_imagen&gt; .</code>.
     </p>
   </li>
+
   <li><br>
     <div align="center">
       <p><img width=850 src="https://github.com/user-attachments/assets/3806ac2e-1eb3-47d3-80a9-50c20c41f0c4"/></p>
     </div>
     <p>
-      Aqui se muestra el archivo "Dockerfile" donde muestra los comandos que se usaron para configurarlo y que se requiere instalar unas cosas, crear la carpeta en docker y agregar el archivo en esta,
-      aquí muestro la funcion exacta de los comandos que se usaron para este archivo:
+      Aquí se muestra el archivo <b>Dockerfile</b>, donde se pueden ver los comandos utilizados para configurarlo. A continuación, se detalla la función de cada línea:
       <ul>
         <li><code>FROM python:3.11-slim</code> → Define la imagen base de Python (ligera y optimizada).</li>
         <li><code>LABEL maintainer="..."</code> → Agrega una etiqueta con la información del creador del contenedor.</li>
-        <li><code>RUN apt-get update ...</code> → Instala las dependencias necesarias para que la imagen soporte PyBullet y la salida gráfica (OpenGL y librerías del sistema). Al final se limpia la caché para reducir el tamaño de la              imagen.</li>
+        <li><code>RUN apt-get update ...</code> → Instala las dependencias necesarias para que la imagen soporte PyBullet y la salida gráfica (OpenGL y librerías del sistema). Al final, limpia la caché para reducir el tamaño de la imagen.</li>
         <li><code>WORKDIR /brazo_robotico</code> → Define la carpeta de trabajo dentro del contenedor donde se colocarán los archivos.</li>
-        <li><code>COPY requirements.txt .</code> → Copia el archivo con las dependencias Python dentro del contenedor.</li>
-        <li><code>RUN pip install --no-cache-dir -r requirements.txt</code> → Instala las dependencias Python sin guardar caché de pip.</li>
+        <li><code>COPY requirements.txt .</code> → Copia el archivo con las dependencias dentro del contenedor.</li>
+        <li><code>RUN pip install --no-cache-dir -r requirements.txt</code> → Instala las dependencias de Python sin guardar caché.</li>
         <li><code>COPY brazo_robotico.py .</code> → Copia el script principal de la simulación al contenedor.</li>
-        <li><code>ENV DISPLAY=:0</code> → Configura la variable de entorno para X11 (para mostrar GUI cuando se ejecute con las opciones de docker run adecuadas).</li>
-        <li><code>CMD ["python", "brazo_robotico.py"]</code> → Comando por defecto que arranca la simulación al iniciar el contenedor.</li>
+        <li><code>ENV DISPLAY=:0</code> → Configura la variable de entorno X11 para habilitar la interfaz gráfica.</li>
+        <li><code>CMD ["python", "brazo_robotico.py"]</code> → Comando por defecto que inicia la simulación al ejecutar el contenedor.</li>
       </ul>
     </p>
   </li>
+
   <li><br>
     <div align="center">
       <p><img width=850 src="https://github.com/user-attachments/assets/11b67d57-a727-4cb1-b5e6-cbef639bb2e8"/></p>
     </div>
     <p>
-      Por último se ejecuta el contenedor con la imagen creada, con el comando <code>docker run -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --device /dev/dri &lt;nombre_de_la_imagen&gt;</code>.
-      Es necesario colocarlo así para que se puedaa ejecutar la simulación con un entorno gráfico.
+      Finalmente, se ejecuta el contenedor usando el comando:<br>
+      <code>docker run -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --device /dev/dri &lt;nombre_de_la_imagen&gt;</code>.
+      <br><br>
+      Este comando permite que la simulación se ejecute con su <b>entorno gráfico</b> habilitado correctamente.
     </p>
   </li>
+
   <li><br>
     <div align="center">
       <p><img width=850 src="https://github.com/user-attachments/assets/d837d3d6-8e2f-4487-81ee-ceee47c82297"/></p>
     </div>
     <p>
-      Aqui ya se muestra la simulación ejecutandose con entorno gráfico como un contenedor.
+      Aquí ya se muestra la simulación corriendo con <b>entorno gráfico</b> dentro de un contenedor, utilizando <b>PyBullet</b> como motor principal.
     </p>
   </li>
 </ol>
@@ -124,37 +140,44 @@
       <p><img width=850 src="https://github.com/user-attachments/assets/5a46a058-00a0-481d-86f2-e911bfec4905"/></p>
     </div>
     <p>
-      Igual a la primera simulación, se hace el mismo proceso de crear la carpeta e ingresar a ella, después al crear el archivo requirements.txt ahí si cambia un poco.
-      El contenido de este archivo es vacío ya que no se requiere instalar librerias de la simulación a parte como toca con pybullet y con numpy, ya que tkinter ya viene
-      preinstalada cuando se instala python, asi que ese archivo se coloca vacío.
-      Eso era lo único diferente porque después también toca mover el archivo de la simulación (.py) a la carpeta, crear el "Dockerfile" de la misma manera y contruir de
-      la misma forma la imagen que contiene el archivo de la simulación (.py) con sus dependencias.
+      Igual que en la primera simulación, se crea la carpeta y se ingresa en ella. Sin embargo, en este caso, el archivo <b>requirements.txt</b> se deja vacío, 
+      ya que no se requiere instalar librerías adicionales. 
+      <br><br>
+      La librería <b>Tkinter</b> ya viene preinstalada con Python, por lo tanto, no es necesario incluirla ahí. 
+      Luego se mueve el archivo de la simulación (.py), se crea el <b>Dockerfile</b> y se construye la imagen de la misma manera que antes.
     </p>
   </li>
+
   <li><br>
     <div align="center">
       <p><img width=850 src="https://github.com/user-attachments/assets/ab2ae835-48d2-4e78-8f4d-62a8bf1fd262"/></p>
     </div>
     <p>
-      Aquí se muestra el archivo "Dockerfile" el cual es el mismo proceso que el anterior, aunque hay que tener en cuenta que a pesar que no tengamos que descargar la libreria
-      tkinter en el archivo "requirements.txt", si se requiere instalarlo como dependencia del sistema, se pondria en el <code>RUN</code> como <code>tk-dev</code>, de resto es igual.
+      Este es el archivo <b>Dockerfile</b>, que sigue el mismo proceso que el anterior. 
+      Sin embargo, aunque no sea necesario incluir <b>Tkinter</b> en el <code>requirements.txt</code>, 
+      sí se debe instalar como dependencia del sistema en el <code>RUN</code> mediante <code>tk-dev</code>.
     </p>
   </li>
+
   <li><br>
     <div align="center">
       <p><img width=850 src="https://github.com/user-attachments/assets/48a2ea10-45fc-4c92-97a3-bb76a301dc1d"/></p>
     </div>
     <p>
-      Ahora si se pondria el comando para que se ejecute o arranque el contenedor de la simulación con un entorno gráfico.
+      Una vez configurado todo, se ejecuta el contenedor de la simulación con el comando correspondiente para que se abra el <b>entorno gráfico</b> correctamente.
     </p>
   </li>
+
   <li><br>
     <div align="center">
       <p><img width=850 src="https://github.com/user-attachments/assets/64db1708-c373-4d49-a759-508be14ae1be"/></p>
       <p><img width=850 src="https://github.com/user-attachments/assets/f7d0fe9c-d738-4b05-86e1-0e1414410431"/></p>
     </div>
     <p>
-      Aqui se evidencia como se ejecutó y cumple con las funciones de la simulación correctamente.
+      Finalmente, se observa cómo la simulación se ejecuta correctamente dentro del contenedor, mostrando su interfaz gráfica mediante <b>Tkinter</b>. 
+      <br><br>
+      Este tipo de simulación se basa más en la visualización y la interacción directa, 
+      por lo que utiliza menos comandos en consola y se centra en la parte gráfica.
     </p>
   </li>
 </ol>
